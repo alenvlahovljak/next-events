@@ -17,6 +17,8 @@
   "plugins": ["import", "jsx-a11y", "react", "react-hooks", "prettier"],
   "extends": ["airbnb", "prettier"],
   "rules": {
+    "eqeqeq": "off",
+    "no-plusplus": "off",
     "prettier/prettier": "error",
     "camelcase": "off",
     "import/prefer-default-export": "off",
@@ -44,7 +46,13 @@
         "specialLink": ["hrefLeft", "hrefRight"],
         "aspects": ["invalidHref", "preferButton"]
       }
-    ]
+    ],
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["CustomInputLabel"],
+      "labelAttributes": ["label"],
+      "controlComponents": ["CustomInput"],
+      "depth": 3
+    }]
   },
   "overrides": [
     {
