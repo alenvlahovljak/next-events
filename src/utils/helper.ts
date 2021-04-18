@@ -1,3 +1,13 @@
+import { IEvent } from '@/utils/events';
+
+export async function transformFirebaseData(
+  noTransform: boolean,
+  data: any,
+): Promise<IEvent[]> {
+  const jsonData = await data.json();
+  return noTransform ? jsonData : Object.values(jsonData);
+}
+
 export function getHumanReadableDate(date: string, locale: string): string {
   return new Date(date).toLocaleDateString(locale, {
     day: `numeric`,

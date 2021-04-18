@@ -1,20 +1,15 @@
-import { useRouter } from 'next/router';
-import { getEventById } from '@/utils/events';
+import { GetStaticPropsContext } from 'next';
+import { getFeaturedEvents, getEventById, IEvent } from '@/utils/events';
 
 import { Error } from '@/components/UI';
 import { Summary, Logistics, Content } from '@/components/EventDetail';
 
-function EventDetailPage() {
-  const router = useRouter();
-
-  const { eventId } = router.query;
-  const event = getEventById(eventId);
-
+function EventDetailPage({ event }: { event: IEvent }) {
   if (!event) {
     return (
-      <Error>
-        <p>No event found!</p>
-      </Error>
+      <div className="center">
+        <p>Loading</p>
+      </div>
     );
   }
 
@@ -32,6 +27,31 @@ function EventDetailPage() {
       </Content>
     </>
   );
+}
+
+export async function getStaticPaths() {
+  const events = await getFeaturedEvents();
+
+  const paths = events.map((e: [id: string, event: IEvent]) => ({
+    params: { eventId: e[0] },
+  }));
+
+  return {
+    paths,
+    fallback: `blocking`,
+  };
+}
+
+export async function getStaticProps(ctx: GetStaticPropsContext) {
+  const eventId = ctx.params?.eventId;
+  const event = await getEventById(eventId);
+
+  return {
+    props: {
+      event,
+    },
+    revalidate: 30,
+  };
 }
 
 export default EventDetailPage;

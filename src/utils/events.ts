@@ -1,6 +1,6 @@
-import events from '@/fixtures/events';
+import { getAllEvents } from '@/api/client';
 
-export interface IEvents {
+export interface IEvent {
   id: string;
   title: string;
   description: string;
@@ -10,15 +10,14 @@ export interface IEvents {
   isFeatured: boolean;
 }
 
-export function getFeaturedEvents() {
-  return events.filter((event) => event.isFeatured);
+export async function getFeaturedEvents(): Promise<any> {
+  return getAllEvents(true).then((events) =>
+    Object.entries(events).filter((event) => event[1].isFeatured),
+  );
 }
 
-export function getAllEvents() {
-  return events;
-}
-
-export function getFilteredEvents(dateFilter: Record<string, any>) {
+export async function getFilteredEvents(dateFilter: Record<string, any>) {
+  const events = await getAllEvents();
   const { year, month } = dateFilter;
 
   return events.filter((event) => {
@@ -30,5 +29,5 @@ export function getFilteredEvents(dateFilter: Record<string, any>) {
 }
 
 export function getEventById(id: string | string[] | undefined) {
-  return events.find((event) => event.id === id);
+  return getAllEvents(true).then((events) => events[(id as unknown) as number]);
 }

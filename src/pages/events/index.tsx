@@ -1,11 +1,12 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getAllEvents } from '@/utils/events';
+import { getAllEvents } from '@/api/client';
+import type { IEvent } from '@/utils/events';
 
 import { List, Search } from '@/components/events';
 
-function AllEventsPage() {
+function AllEventsPage({ events }: { events: IEvent[] }) {
   const router = useRouter();
-  const events = getAllEvents();
 
   async function findEventsHandler(
     year: string | undefined,
@@ -22,6 +23,18 @@ function AllEventsPage() {
       <List items={events} />
     </>
   );
+}
+
+export async function getStaticProps() {
+  const rawEvents = await getAllEvents();
+  const events = Object.values(rawEvents);
+
+  return {
+    props: {
+      events,
+    },
+    revalidate: 60,
+  };
 }
 
 export default AllEventsPage;

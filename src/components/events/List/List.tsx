@@ -1,19 +1,19 @@
 import { FC } from 'react';
-import type { IEvents } from '@/utils/events';
+import type { IEvent } from '@/utils/events';
 
 import Item from '../Item/Item';
 import { UnorderedList } from './style';
 
 export interface ListProps {
-  items: IEvents[];
+  items: IEvent[];
 }
 
 const List: FC<ListProps> = ({ items }) => (
   <UnorderedList>
-    {items.map((event: IEvents) => (
+    {items.map((event: IEvent, i) => (
       <Item
-        key={event.id}
-        id={event.id}
+        key={Math.random()}
+        id={i}
         title={event.title}
         location={event.location}
         date={event.date}

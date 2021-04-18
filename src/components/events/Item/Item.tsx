@@ -14,7 +14,7 @@ export interface ItemProps {
   image: string;
   date: string;
   location: string;
-  id: string;
+  id: string | number;
 }
 
 const Item: FC<ItemProps> = ({ title, image, date, location, id }) => (
