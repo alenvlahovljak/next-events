@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { getFilteredEvents, IEvent } from '@/utils/events';
+import { IEvent } from '@/utils/events';
 
+import Head from 'next/head';
 import { List, ResultsTitle } from '@/components/events';
 import { Button, Error } from '@/components/UI';
 
@@ -23,15 +23,37 @@ function FilteredEventsPage() {
     }
   }, [data]);
 
-  if (!events) {
-    return <p className="center">Loading...</p>;
-  }
-
   const filteredYear = filteredData[0];
   const filteredMonth = filteredData[1];
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
+
+  let pageHead = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content="A list of filtered events" />
+    </Head>
+  );
+
+  if (!events || Number.isNaN(numMonth) || Number.isNaN(numYear)) {
+    return (
+      <>
+        {pageHead}
+        <p className="center">Loading...</p>;
+      </>
+    );
+  }
+
+  pageHead = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events for ${numMonth}/${numYear}`}
+      />
+    </Head>
+  );
 
   if (
     Number.isNaN(numYear) ||
@@ -44,6 +66,7 @@ function FilteredEventsPage() {
   ) {
     return (
       <>
+        {pageHead}
         <Error>
           <p>Invalid filter. Please adjust your values!</p>
         </Error>
@@ -64,6 +87,7 @@ function FilteredEventsPage() {
   if (!filteredEvents || filteredEvents.length == 0) {
     return (
       <>
+        {pageHead}
         <Error>
           <p>No events found for the chosen filter!</p>
         </Error>
@@ -78,8 +102,9 @@ function FilteredEventsPage() {
 
   return (
     <>
+      {pageHead}
       <ResultsTitle date={resultDate} />
-      <List items={filteredEvents} />
+      <List items={filteredEvents} ids={Object.keys(data)} />
     </>
   );
 }
