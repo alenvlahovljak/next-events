@@ -30,7 +30,7 @@ export function getAddressText(address: string): string {
   return address.replace(`, `, `\n`);
 }
 
-export function getExploreLink(id: string): string {
+export function getExploreLink(id: string | number): string {
   return `/events/${id}`;
 }
 

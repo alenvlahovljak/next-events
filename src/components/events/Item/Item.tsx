@@ -5,6 +5,7 @@ import {
   getExploreLink,
 } from '@/utils/helper';
 
+import Image from 'next/image';
 import { Button } from '@/components/UI';
 import { DateIcon, AddressIcon, ArrowRightIcon } from '@/components/icons';
 import { ListItem, Content, Info, Actions, Icon } from './style';
@@ -19,7 +20,7 @@ export interface ItemProps {
 
 const Item: FC<ItemProps> = ({ title, image, date, location, id }) => (
   <ListItem>
-    <img src={`/${image}`} alt={title} />
+    <Image src={`/${image}`} alt={title} width={250} height={160} />
     <Content>
       <h2>{title}</h2>
       <Info>

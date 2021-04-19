@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { getHumanReadableDate, getAddressText } from '@/utils/helper';
 
 import { DateIcon, AddressIcon } from '@/components/icons';
+import Image from 'next/image';
+import { ListItem } from '@/components/events/Item/style';
 import Item from './Item/Item';
 import { Section, Cover, List } from './style';
 
@@ -15,7 +17,7 @@ export interface LogisticsProps {
 const Logistics: FC<LogisticsProps> = ({ date, address, image, imageAlt }) => (
   <Section>
     <Cover>
-      <img src={`/${image}`} alt={imageAlt} />
+      <Image src={`/${image}`} alt={imageAlt} width={400} height={400} />
     </Cover>
     <List>
       <Item icon={DateIcon}>

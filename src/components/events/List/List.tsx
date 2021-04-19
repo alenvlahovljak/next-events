@@ -6,14 +6,15 @@ import { UnorderedList } from './style';
 
 export interface ListProps {
   items: IEvent[];
+  ids: string[];
 }
 
-const List: FC<ListProps> = ({ items }) => (
+const List: FC<ListProps> = ({ items, ids }) => (
   <UnorderedList>
     {items.map((event: IEvent, i) => (
       <Item
         key={Math.random()}
-        id={i}
+        id={ids[i]}
         title={event.title}
         location={event.location}
         date={event.date}

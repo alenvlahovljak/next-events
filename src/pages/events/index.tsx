@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getAllEvents } from '@/api/client';
 import type { IEvent } from '@/utils/events';
 
 import { List, Search } from '@/components/events';
 
-function AllEventsPage({ events }: { events: IEvent[] }) {
+function AllEventsPage({ events, ids }: { events: IEvent[]; ids: string[] }) {
   const router = useRouter();
 
   async function findEventsHandler(
@@ -20,17 +19,19 @@ function AllEventsPage({ events }: { events: IEvent[] }) {
   return (
     <>
       <Search onSearch={findEventsHandler} />
-      <List items={events} />
+      <List items={events} ids={ids} />
     </>
   );
 }
 
 export async function getStaticProps() {
-  const rawEvents = await getAllEvents();
+  const rawEvents = await getAllEvents(true);
   const events = Object.values(rawEvents);
+  const ids = Object.keys(rawEvents);
 
   return {
     props: {
+      ids,
       events,
     },
     revalidate: 60,
