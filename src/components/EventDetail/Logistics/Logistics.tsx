@@ -3,7 +3,6 @@ import { getHumanReadableDate, getAddressText } from '@/utils/helper';
 
 import { DateIcon, AddressIcon } from '@/components/Icons';
 import Image from 'next/image';
-import { ListItem } from '@/components/Events/Item/style';
 import Item from './Item/Item';
 import { Section, Cover, List } from './style';
 

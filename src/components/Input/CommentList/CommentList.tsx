@@ -8,8 +8,8 @@ export interface ComponentListProps {
 
 const CommentList: FC<ComponentListProps> = ({ items }) => (
   <Container>
-    {items.map(({ id, text, name }) => (
-      <li key={id}>
+    {items.map(({ _id, text, name }) => (
+      <li key={_id}>
         <p>{text}</p>
         <div>
           By <address>{name}</address>
