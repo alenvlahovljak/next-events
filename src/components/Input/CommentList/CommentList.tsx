@@ -2,21 +2,20 @@ import { FC } from 'react';
 
 import { Container } from './style';
 
-const CommentList: FC = () => (
+export interface ComponentListProps {
+  items: Record<string, string>[];
+}
+
+const CommentList: FC<ComponentListProps> = ({ items }) => (
   <Container>
-    {/* Render list of comments - fetched from API */}
-    <li>
-      <p>My comment is amazing!</p>
-      <div>
-        By <address>Maximilian</address>
-      </div>
-    </li>
-    <li>
-      <p>My comment is amazing!</p>
-      <div>
-        By <address>Maximilian</address>
-      </div>
-    </li>
+    {items.map(({ id, text, name }) => (
+      <li key={id}>
+        <p>{text}</p>
+        <div>
+          By <address>{name}</address>
+        </div>
+      </li>
+    ))}
   </Container>
 );
 

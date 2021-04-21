@@ -1,10 +1,24 @@
-import { FC } from 'react';
+import { useRef, FC, FormEvent } from 'react';
 
 import { Container, Control } from './style';
 
 const NewsletterRegistration: FC = () => {
-  function registrationHandler(event: any) {
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+
+  function registrationHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    fetch(`/api/newsletter`, {
+      method: `POST`,
+      body: JSON.stringify({
+        email: emailInputRef.current?.value,
+      }),
+      headers: {
+        'Content-Type': `application/json`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(`Response`, data));
 
     // fetch user Input (state or refs)
     // optional: validate Input
@@ -17,6 +31,7 @@ const NewsletterRegistration: FC = () => {
       <form onSubmit={registrationHandler}>
         <Control>
           <input
+            ref={emailInputRef}
             type="email"
             id="email"
             placeholder="Your email"
