@@ -3,6 +3,7 @@ import { getFeaturedEvents, getEventById, IEvent } from '@/utils/events';
 
 import Head from 'next/head';
 import { Summary, Logistics, Content } from '@/components/EventDetail';
+import { Comments } from '@/components/Input';
 
 function EventDetailPage({ event }: { event: IEvent }) {
   if (!event) {
@@ -29,6 +30,7 @@ function EventDetailPage({ event }: { event: IEvent }) {
       <Content>
         <p>{event.description}</p>
       </Content>
+      <Comments eventId={event.id} />
     </>
   );
 }

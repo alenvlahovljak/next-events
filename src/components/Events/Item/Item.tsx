@@ -7,7 +7,7 @@ import {
 
 import Image from 'next/image';
 import { Button } from '@/components/UI';
-import { DateIcon, AddressIcon, ArrowRightIcon } from '@/components/icons';
+import { DateIcon, AddressIcon, ArrowRightIcon } from '@/components/Icons';
 import { ListItem, Content, Info, Actions, Icon } from './style';
 
 export interface ItemProps {

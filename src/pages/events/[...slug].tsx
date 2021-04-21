@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { IEvent } from '@/utils/events';
 
 import Head from 'next/head';
-import { List, ResultsTitle } from '@/components/events';
+import { List, ResultsTitle } from '@/components/Events';
 import { Button, Error } from '@/components/UI';
 
 function FilteredEventsPage() {

@@ -3,7 +3,7 @@ import { getAllEvents } from '@/api/client';
 import type { IEvent } from '@/utils/events';
 
 import Head from 'next/head';
-import { List, Search } from '@/components/events';
+import { List, Search } from '@/components/Events';
 
 function AllEventsPage({ events, ids }: { events: IEvent[]; ids: string[] }) {
   const router = useRouter();

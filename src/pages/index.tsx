@@ -1,7 +1,8 @@
 import { getFeaturedEvents, IEvent } from '@/utils/events';
 
 import Head from 'next/head';
-import { List } from '@/components/events';
+import { List } from '@/components/Events';
+import { NewsletterRegistration } from '@/components/Input';
 
 function HomePage({ events, ids }: { events: IEvent[]; ids: string[] }) {
   return (
@@ -13,6 +14,7 @@ function HomePage({ events, ids }: { events: IEvent[]; ids: string[] }) {
           content="Find a lot of events that allow you to evolve..."
         />
       </Head>
+      <NewsletterRegistration />
       <List items={events} ids={ids} />
     </div>
   );
